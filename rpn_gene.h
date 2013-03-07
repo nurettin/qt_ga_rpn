@@ -8,7 +8,7 @@ namespace qrg {
 struct rpn_gene: wheel
 {
   rpn_gene();
-
+  rpn_gene(data_type::size_type n, double mutation);
   QString sample() const;
 };
 

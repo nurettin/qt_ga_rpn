@@ -1,16 +1,16 @@
 #include <QCoreApplication>
 #include <QDebug>
 
-#include "rpn_gene.h"
+#include "rpn_dna.h"
+#include "util.h"
+#include "rpn.h"
 
 int main(int argc, char *argv[])
 {
   QCoreApplication a(argc, argv);
-  qrg::rpn_gene gene;
-  for(int n= 1000; n--;)
-    gene.mutate();
-  qDebug()<< gene;
-  for(int n= 10; n--;)
-    qDebug()<< gene.sample();
+  qrg::rand_seed();
+  bool ok= true;
+  qDebug()<< qrg::rpn_eval("- 1 2 + 4 * + 3 -", ok);
+  qDebug()<< ok;
   return a.exec();
 }

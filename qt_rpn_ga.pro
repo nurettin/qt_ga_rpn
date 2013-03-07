@@ -19,10 +19,12 @@ SOURCES += main.cpp \
     wheel.cpp \
     util.cpp \
     rpn_gene.cpp \
-    rpn_dna.cpp
+    rpn_dna.cpp \
+    rpn.cpp
 
 HEADERS += \
     wheel.h \
     util.h \
     rpn_gene.h \
-    rpn_dna.h
+    rpn_dna.h \
+    rpn.h
