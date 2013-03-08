@@ -1,3 +1,4 @@
+#include <QTextStream>
 #include "rpn_dna.h"
 #include "util.h"
 #include "rpn.h"
@@ -10,12 +11,13 @@ rpn_dna::rpn_dna(QVector<rpn_gene>::size_type size, wheel::data_type::size_type 
 
 void rpn_dna::mutate()
 {
-  int mutate_index= rand_range(0, gene.size());
+  int mutate_index= rand_range(0, gene.size()- 1);
   gene[mutate_index].mutate();
 }
 
 QString rpn_dna::sample() const
 {
+
   return "";
 }
 

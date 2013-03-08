@@ -12,7 +12,8 @@ public:
 
   rpn_dna(QVector<rpn_gene>::size_type size, wheel::data_type::size_type gene_size, double mutation);
   void mutate();
-  double fitness(int tries);
+  QString sample() const;
+  double fitness(int samples);
 };
 
 rpn_dna operator* (rpn_dna const &d1, rpn_dna const &d2);
