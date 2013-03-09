@@ -71,7 +71,6 @@ QString rpn_infix(QString const &s_expr, bool &ok)
   static binary_ops_type bin_ops= binary_ops();
   while (in>> token)
   {
-    qDebug()<< "token: "<< token;
     binary_ops_type::const_iterator op= bin_ops.find(token);
     if(op== bin_ops.end())
     {
@@ -85,11 +84,11 @@ QString rpn_infix(QString const &s_expr, bool &ok)
       return 0;
     }
 
-    std::string const &rhs = stack.back();
+    std::string rhs = stack.back();
     stack.pop_back();
-    std::string const &lhs = stack.back();
+    std::string lhs = stack.back();
     stack.pop_back();
-    stack.push_back(lhs+ op-> first+ rhs);
+    stack.push_back('('+ lhs+ ' '+ op-> first+ ' '+ rhs+ ')');
   }
   return QString::fromStdString(stack.back());
 }
