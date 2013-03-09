@@ -17,7 +17,6 @@ int main(int argc, char *argv[])
 
   qrg::rpn_pool pool(100, 7, &gene_samples, 1./ gene_samples.size()/ 4, 3.14, 100);
   pool.evolve();
-  qDebug()<< pool;
 
   return a.exec();
 }

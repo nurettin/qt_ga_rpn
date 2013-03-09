@@ -9,7 +9,9 @@ rpn_dna_comparator::rpn_dna_comparator(int target, int samples)
 
 bool rpn_dna_comparator::operator()(const rpn_dna &dna1, const rpn_dna &dna2)
 {
-  return dna1.fitness(target, samples)< dna2.fitness(target, samples);
+  double fitness1= dna1.fitness(target, samples);
+  double fitness2= dna2.fitness(target, samples);
+  return fitness1< fitness2;
 }
 
 }
