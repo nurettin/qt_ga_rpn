@@ -20,11 +20,15 @@ SOURCES += main.cpp \
     util.cpp \
     rpn_gene.cpp \
     rpn_dna.cpp \
-    rpn.cpp
+    rpn.cpp \
+    rpn_pool.cpp \
+    rpn_dna_comparator.cpp
 
 HEADERS += \
     wheel.h \
     util.h \
     rpn_gene.h \
     rpn_dna.h \
-    rpn.h
+    rpn.h \
+    rpn_pool.h \
+    rpn_dna_comparator.h

@@ -3,7 +3,8 @@
 
 namespace qrg{
 
-wheel::wheel(data_type::size_type n, double mutation)
+wheel::wheel(data_type::size_type n,
+             double mutation)
   : data(n, 1./ n)
   , mutation(mutation)
 {}

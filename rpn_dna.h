@@ -10,10 +10,13 @@ class rpn_dna
 public:
   QVector<rpn_gene> gene;
 
-  rpn_dna(QVector<rpn_gene>::size_type size, wheel::data_type::size_type gene_size, double mutation);
+  rpn_dna();
+  rpn_dna(QVector<rpn_gene>::size_type size,
+          QVector<QString> *gene_samples,
+          double mutation);
   void mutate();
   QString sample() const;
-  double fitness(int samples);
+  double fitness(double target, int samples) const;
 };
 
 rpn_dna operator* (rpn_dna const &d1, rpn_dna const &d2);

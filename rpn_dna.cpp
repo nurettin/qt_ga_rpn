@@ -1,12 +1,21 @@
+#include <limits>
+#include <cmath>
+
 #include <QTextStream>
+#include <QDebug>
+
 #include "rpn_dna.h"
 #include "util.h"
 #include "rpn.h"
 
 namespace qrg {
 
-rpn_dna::rpn_dna(QVector<rpn_gene>::size_type size, wheel::data_type::size_type gene_size, double mutation)
-  : gene(size, rpn_gene(gene_size, mutation))
+rpn_dna::rpn_dna(){}
+
+rpn_dna::rpn_dna(QVector<rpn_gene>::size_type size,
+                 QVector<QString>* gene_samples,
+                 double mutation)
+  : gene(size, rpn_gene(gene_samples, mutation))
 {}
 
 void rpn_dna::mutate()
@@ -17,18 +26,34 @@ void rpn_dna::mutate()
 
 QString rpn_dna::sample() const
 {
-
-  return "";
+  static QString cat;
+  cat.clear();
+  for(QVector<rpn_gene>::size_type g= 0; g< gene.size()- 1; ++ g)
+    cat.append(gene[g].sample()).append(' ');
+  cat.append(gene[gene.size()- 1].sample());
+  return cat;
 }
 
-double rpn_dna::fitness(int tries)
+double rpn_dna::fitness(double target, int tries) const
 {
-  return 0;
+  double error_value= std::numeric_limits<double>::max()/ tries;
+  double sum= 0;
+  for(int n= tries; n--;)
+  {
+    bool ok= true;
+    QString const &sample_equation= sample();
+    double rpn= rpn_eval(sample_equation, ok);
+    double how_fit= 0;
+    if(!ok) how_fit= error_value;
+    else how_fit= std::fabs(rpn- target);
+    sum+= how_fit;
+  }
+  return sum/ tries;
 }
 
 rpn_dna operator* (rpn_dna const &d1, rpn_dna const &d2)
 {
-  rpn_dna child(d1.gene.size(), d1.gene.first().data.size(), d1.gene.first().mutation);
+  rpn_dna child(d1.gene.size(), d1.gene.first().samples, d1.gene.first().mutation);
   for(QVector<rpn_gene>::size_type e= 0; e< d1.gene.size(); ++ e)
     child.gene[e]= d1.gene[e]* d2.gene[e];
   return child;

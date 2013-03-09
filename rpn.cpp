@@ -5,8 +5,11 @@
 #include <cmath>
 #include <functional>
 #include <map>
+
 #include <tr1/functional>
+
 #include <QDebug>
+
 #include "rpn.h"
 
 namespace qrg {
@@ -24,7 +27,8 @@ binary_ops_type binary_ops()
   return ops;
 }
 
-double rpn_eval(QString const &s_expr, bool &ok)
+double rpn_eval(QString const &s_expr,
+                bool &ok)
 {
   std::string expr= s_expr.toStdString();
   static std::istringstream in;
