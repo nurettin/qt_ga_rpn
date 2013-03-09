@@ -81,7 +81,7 @@ QString rpn_infix(QString const &s_expr, bool &ok)
     if(stack.size()< 2)
     {
       ok= false;
-      return 0;
+      return "";
     }
 
     std::string rhs = stack.back();
