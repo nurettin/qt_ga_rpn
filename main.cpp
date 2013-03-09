@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
   QCoreApplication a(argc, argv);
   qrg::rand_seed();
   bool ok= true;
-  qDebug()<< qrg::rpn_eval("5 7 + 6 2 - *", ok);
+  qDebug()<< qrg::rpn_infix("5 7 + 6 2 - *", ok);
   qDebug()<< ok;
   return a.exec();
 }
