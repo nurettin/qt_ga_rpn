@@ -1,5 +1,6 @@
 #include "rpn_pool.h"
 #include "rpn_dna.h"
+#include "rpn_dna_comparator.h"
 
 namespace qrg {
 
@@ -13,7 +14,7 @@ rpn_pool::rpn_pool(QVector<rpn_dna>::size_type size,
   , comparator(fitness_target, fitness_samples)
 {}
 
-void rpn_pool::evolve()
+rpn_dna_comparator rpn_pool::evolve()
 {
   int half_pool_size= pool.size()/ 2;
   for(int n= 0; n< half_pool_size; ++ n)
@@ -24,6 +25,7 @@ void rpn_pool::evolve()
   }
   qSort(pool.begin(), pool.end(), comparator);
   pool.erase(pool.begin()+ half_pool_size* 2, pool.end());
+  return comparator;
 }
 
 QDebug operator<< (QDebug dbg, rpn_pool const &pool)

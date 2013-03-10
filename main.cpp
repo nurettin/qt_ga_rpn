@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
   for(int generation= 1; generation< 1001; ++ generation)
   {
     qDebug()<< "evolving generation: "<< generation;
-    pool.evolve();
+    qDebug()<< "max fitness: "<< pool.evolve().max_fitness;
     qDebug()<< "pool size: "<< pool.pool.size();
     qDebug()<< "time: "<< timer.elapsed()<< "ms";
     timer.restart();

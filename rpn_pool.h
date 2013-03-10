@@ -20,7 +20,7 @@ public:
            double mutation,
            double fitness_target,
            int fitness_samples);
-  void evolve();
+  rpn_dna_comparator evolve();
 };
 
 QDebug operator<< (QDebug dbg, rpn_pool const &pool);
