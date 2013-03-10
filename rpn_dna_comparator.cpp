@@ -10,7 +10,7 @@ rpn_dna_comparator::rpn_dna_comparator(double target, int samples)
   , max_fitness(std::numeric_limits<double>::max())
 {}
 
-bool rpn_dna_comparator::operator()(const rpn_dna &dna1, const rpn_dna &dna2)
+bool rpn_dna_comparator::operator()(rpn_dna const &dna1, rpn_dna const &dna2)
 {
   double fitness1= dna1.fitness(target, samples);
   double fitness2= dna2.fitness(target, samples);

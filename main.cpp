@@ -24,7 +24,6 @@ int main(int argc, char *argv[])
   {
     qDebug()<< "evolving generation: "<< generation;
     qDebug()<< "max fitness: "<< pool.evolve().max_fitness;
-    qDebug()<< "pool size: "<< pool.pool.size();
     qDebug()<< "time: "<< timer.elapsed()<< "ms";
     timer.restart();
   }
