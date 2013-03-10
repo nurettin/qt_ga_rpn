@@ -11,7 +11,7 @@ public:
   double target;
   int samples;
 
-  rpn_dna_comparator(int target, int samples);
+  rpn_dna_comparator(double target, int samples);
   bool operator()(rpn_dna const &dna1, rpn_dna const &dna2);
 };
 

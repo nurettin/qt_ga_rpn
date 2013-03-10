@@ -27,8 +27,7 @@ binary_ops_type binary_ops()
   return ops;
 }
 
-double rpn_eval(QString const &s_expr,
-                bool &ok)
+double rpn_eval(QString const &s_expr, bool &ok)
 {
   std::string expr= s_expr.toStdString();
   static std::istringstream in;
@@ -38,11 +37,17 @@ double rpn_eval(QString const &s_expr,
   stack.clear();
   static std::string token;
   static binary_ops_type bin_ops= binary_ops();
+
   while (in>> token)
   {
     binary_ops_type::const_iterator op= bin_ops.find(token);
     if(op== bin_ops.end())
     {
+      if(stack.size()== 2)
+      {
+        ok= false;
+        return 0;
+      }
       double n= QString::fromStdString(token).toDouble();
       stack.push_back(n);
       continue;
@@ -63,7 +68,7 @@ double rpn_eval(QString const &s_expr,
   return stack.back();
 }
 
-QString rpn_infix(QString const &s_expr, bool &ok)
+QString rpn_infix_valid(QString const &s_expr)
 {
   std::string expr= s_expr.toStdString();
   static std::istringstream in;
@@ -73,6 +78,7 @@ QString rpn_infix(QString const &s_expr, bool &ok)
   stack.clear();
   static std::string token;
   static binary_ops_type bin_ops= binary_ops();
+
   while (in>> token)
   {
     binary_ops_type::const_iterator op= bin_ops.find(token);
@@ -82,19 +88,26 @@ QString rpn_infix(QString const &s_expr, bool &ok)
       continue;
     }
 
-    if(stack.size()< 2)
-    {
-      ok= false;
-      return "";
-    }
-
     std::string rhs = stack.back();
     stack.pop_back();
     std::string lhs = stack.back();
     stack.pop_back();
-    stack.push_back('('+ lhs+ ' '+ op-> first+ ' '+ rhs+ ')');
+    if(op-> first== "*"|| op-> first== "/")
+      stack.push_back('('+ lhs+ ' '+ op-> first+ ' '+ rhs+ ')');
+    else
+      stack.push_back('('+ remove_parens(lhs)+ ' '+ op-> first+ ' '+ remove_parens(rhs)+ ')');
   }
-  return QString::fromStdString(stack.back());
+
+  return QString::fromStdString(remove_parens(stack.back()));
+}
+
+std::string remove_parens(std::string const &expr)
+{
+  std::string::size_type expr_size= expr.size();
+  if(expr_size< 2) return expr;
+  if(expr[0]!= '(' || expr[expr_size- 1]!= ')') return expr;
+  std::string substr= expr.substr(1, expr_size- 2);
+  return substr;
 }
 
 }

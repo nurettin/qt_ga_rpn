@@ -23,7 +23,7 @@ void rpn_pool::evolve()
     pool.push_back(new_dna);
   }
   qSort(pool.begin(), pool.end(), comparator);
-  pool.erase(pool.begin()+ half_pool_size* 2);
+  pool.erase(pool.begin()+ half_pool_size* 2, pool.end());
 }
 
 QDebug operator<< (QDebug dbg, rpn_pool const &pool)

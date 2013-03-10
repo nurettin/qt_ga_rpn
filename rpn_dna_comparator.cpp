@@ -2,7 +2,7 @@
 
 namespace qrg {
 
-rpn_dna_comparator::rpn_dna_comparator(int target, int samples)
+rpn_dna_comparator::rpn_dna_comparator(double target, int samples)
   : target(target)
   , samples(samples)
 {}

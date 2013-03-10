@@ -45,9 +45,12 @@ double rpn_dna::fitness(double target, int tries) const
     double rpn= rpn_eval(sample_equation, ok);
     double how_fit= 0;
     if(!ok) how_fit= error_value;
-    else how_fit= std::fabs(rpn- target);
-    if(how_fit<= 0.001)
-      qDebug()<< rpn_infix(sample_equation, ok)<< " = "<< rpn;
+    else
+    {
+      how_fit= std::fabs(rpn- target);
+      if(how_fit<= 0.001)
+        qDebug()<< "fitness: "<< how_fit<< " target: "<< target<< rpn_infix_valid(sample_equation)<< " = "<< rpn;
+    }
     sum+= how_fit;
   }
   return sum/ tries;
