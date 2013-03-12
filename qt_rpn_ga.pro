@@ -22,7 +22,6 @@ SOURCES += main.cpp \
     rpn_dna.cpp \
     rpn.cpp \
     rpn_pool.cpp \
-    rpn_dna_comparator.cpp \
     loud.cpp
 
 HEADERS += \
@@ -32,5 +31,4 @@ HEADERS += \
     rpn_dna.h \
     rpn.h \
     rpn_pool.h \
-    rpn_dna_comparator.h \
     loud.h

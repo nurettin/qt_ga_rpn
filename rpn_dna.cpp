@@ -16,12 +16,15 @@ rpn_dna::rpn_dna(QVector<rpn_gene>::size_type size,
                  QVector<QString>* gene_samples,
                  double mutation)
   : gene(size, rpn_gene(gene_samples, mutation))
+  , max_seen_fitness(std::numeric_limits<double>::max())
+  , fitness_calculated(false)
 {}
 
 void rpn_dna::mutate()
 {
   int mutate_index= rand_range(0, gene.size()- 1);
   gene[mutate_index].mutate();
+  fitness_calculated= false;
 }
 
 QString rpn_dna::sample() const
@@ -34,8 +37,10 @@ QString rpn_dna::sample() const
   return cat;
 }
 
-double rpn_dna::fitness(double target, int tries) const
+double rpn_dna::fitness(double target, int tries)
 {
+  if(fitness_calculated)
+    return max_seen_fitness;
   double error_value= std::numeric_limits<double>::max()/ tries;
   double sum= 0;
   for(int n= tries; n--;)
@@ -53,7 +58,11 @@ double rpn_dna::fitness(double target, int tries) const
     }
     sum+= how_fit;
   }
-  return sum/ tries;
+  double avg= sum/ tries;
+  if(avg< max_seen_fitness)
+    max_seen_fitness= avg;
+  fitness_calculated= true;
+  return avg;
 }
 
 rpn_dna operator* (rpn_dna const &d1, rpn_dna const &d2)
@@ -68,6 +77,11 @@ QDebug operator<< (QDebug dbg, rpn_dna const &dna)
 {
   dbg.nospace()<< dna.gene;
   return dbg.space();
+}
+
+bool operator< (rpn_dna const &d1, rpn_dna const &d2)
+{
+  return d1.max_seen_fitness< d2.max_seen_fitness;
 }
 
 }

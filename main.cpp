@@ -17,13 +17,13 @@ int main(int argc, char *argv[])
   QVector<QString> gene_samples(13);
   qCopy(arr_gene_samples, arr_gene_samples+ 13, gene_samples.begin());
 
-  qrg::rpn_pool pool(100, 7, &gene_samples, 1./ 7/ 4, 3.14, 100);
+  qrg::rpn_pool pool(500, 7, &gene_samples, 1./ 7/ 4, 3.14, 10000);
   QTime timer;
   timer.start();
-  for(int generation= 1; generation< 1001; ++ generation)
+  for(int generation= 1; true; ++ generation)
   {
     qDebug()<< "evolving generation: "<< generation;
-    qDebug()<< "max fitness: "<< pool.evolve().max_fitness;
+    qDebug()<< "max fitness: "<< pool.evolve();
     qDebug()<< "time: "<< timer.elapsed()<< "ms";
     timer.restart();
   }
